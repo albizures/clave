@@ -1,0 +1,26 @@
+{
+  "name": "clave",
+  "version": "0.1.0",
+  "description": "online game",
+  "main": "server.js",
+  "scripts": {
+    "test": "npm start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/albizures/clave.git"
+  },
+  "keywords": [],
+  "author": [
+    "Jose Albizures <albizures3601@gmail.com>",
+    "Dylan Giron <>"
+  ],
+  "license": " ",
+  "bugs": {
+    "url": "https://github.com/albizures/clave/issues"
+  },
+  "homepage": "https://github.com/albizures/clave",
+  "dependencies": {
+    "st": "^0.5.4"
+  }
+}
