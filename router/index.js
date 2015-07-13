@@ -4,6 +4,7 @@ const path = require('path');
 const st = require('st');
 
 const mount = st({
+  cache : false,
   path : path.join(__dirname, '..', 'public'),
   index : 'index.html',
   passthrouht: true
