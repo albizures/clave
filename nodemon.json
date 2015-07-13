@@ -2,5 +2,15 @@
   "verbose": true,
   "execMap": {
     "js": "iojs"
-  }
+  },
+  "watch" : [
+    "server.js",
+    "router/*"
+  ],
+  "ignore":[
+    "public/**",
+    "client/**",
+    "src/**",
+    "dist/**"
+  ]
 }
