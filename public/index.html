@@ -13,6 +13,7 @@
       background-color: #000;
     }
     canvas {
+      width: 100%;
       outline: none;
       margin: 0 auto;
       display: block;
@@ -22,10 +23,11 @@
   </style>
 </head>
 <body>
-  <canvas id="canvas" width="800" height="400" onclick="this.focus();" oncontextmenu="return false;"></canvas>
+  <canvas id="canvas" onclick="this.focus();" oncontextmenu="return false;"></canvas>
   <script src="//localhost:35729/livereload.js"></script>
   <script src="/src/utils.js"></script>
   <script src="/src/init.js"></script>
   <script src="/src/objects/player.js"></script>
+  <script src="/src/modules/main.js"></script>
 </body>
 </html>

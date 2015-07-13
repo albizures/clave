@@ -6,18 +6,18 @@ module.exports = function (grunt) {
   grunt.initConfig({
     watch : {
       options : {
-        livereload: true
+        livereload: 1337
       },
       client  : {
           files : ['public/**/*.js'],
           options : {
-            livereload : true
+            livereload: 1337
           }
       },
       server : {
           files : ['.rebooted'],
           options : {
-            livereload : true
+            livereload: 1337
           }
       }
     },
