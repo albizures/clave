@@ -3,10 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <title>Clavee </title>
+  <style>
+    body {
+      margin: 0 0 0 0;
+      padding: 0 0 0 0;
+      text-align: center;
+      overflow: hidden;
+      user-select: none;
+      background-color: #000;
+    }
+    canvas {
+      outline: none;
+      margin: 0 auto;
+      display: block;
+      background-color: gray;
+      image-rendering: optimizeSpeed;
+    }
+  </style>
 </head>
 <body>
-lalal
+  <canvas id="canvas" width="800" height="400" onclick="this.focus();" oncontextmenu="return false;"></canvas>
   <script src="//localhost:35729/livereload.js"></script>
-  <script src="/game.js"></script>
+  <script src="/src/utils.js"></script>
+  <script src="/src/init.js"></script>
 </body>
 </html>

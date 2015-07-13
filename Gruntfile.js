@@ -6,32 +6,14 @@ module.exports = function (grunt) {
   grunt.initConfig({
     watch : {
       options : {
-        //spawn: false,
-        //nospawn: true,
         livereload: true
       },
-      "babel_build" : {
-        files : [
-          'public/game.js',
-          'public/index.html'
-        ],
-        options : {
-          //spawn: false,
-          //nospawn: true,
-          livereload: true
-        }
+      client  : {
+          files : ['public/**/*.js'],
+          options : {
+            livereload : true
+          }
       },
-      /*babel : {
-        files : [
-          'src/init.js'
-        ],
-        tasks : ['babel'],
-        options : {
-          debounceDelay: 250,
-          spawn: false
-          //nospawn: true
-        }
-      },*/
       server : {
           files : ['.rebooted'],
           options : {
@@ -89,16 +71,6 @@ module.exports = function (grunt) {
         }
       }
     },
-    babel : {
-    	options : {
-    		sourceMap : true
-    	},
-    	dist : {
-    		files : {
-    			'public/game.js' : 'src/init.js'
-    		}
-    	}
-    }
   });
   grunt.event.on('watch', function(action, filepath, target) {
     grunt.log.writeln(target + ': ' + filepath + ' has ' + action);
