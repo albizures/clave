@@ -12,7 +12,7 @@
           function (n) {$.setTimeout(n, 1000 / 60);}
         }()),
         graphics = clave.modules('Graphics')('canvas');
-        module = {
+        var module = {
           resize : function (event) {
 
           },
@@ -20,7 +20,7 @@
             raf(mainLoop);
           },
           init : function () {
-            $.addEventListener('resize',resize);
+            $.addEventListener('resize',this.resize);
             return this;
           }
         }

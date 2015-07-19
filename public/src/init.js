@@ -20,11 +20,14 @@
 	$['rnd'] = function (min, max) {
 		return min + Math.random() * (max - min);
   };
-	$['isFunc'] = function (value) {
-		return typeof value === 'function';
-	};
-	$['isNumber'] = function (value) {
-		return typeof value === 'number';
+	Object.prototype.isNumber = function(){
+		return typeof this.valueOf() === "number";
+	}
+	Object.prototype.isFunc = function () {
+		return typeof this.valueOf() === 'function';
+	}
+	Object.prototype.isString = function () {
+		return typeof this.valueOf() === 'string';
 	};
 	$['isUndefined'] = function (value) {
 		return typeof value === 'undefined';
@@ -41,17 +44,30 @@
 			if(!isUndefined(name)){
 				if(isUndefined(module)){
 					return this._modules[name];
-				}else if(isFunc(module)){
+				}else if(module.isFunc()){
 					this._modules[name] = module();
 				}
 			}
 		},
 		init : function() {
-			function $Object (type) {
+			function $Object (type,width,height,postX,postY,anchor) {
+				this.width = isUndefined(width) ? 0 : width;
+				this.height = isUndefined(height) ? this.width : height;
+				this.postX = isUndefined(postX) ? 0 : postX;
+				this.postY = isUndefined(postY) ? this.postX : postY;
+				if(isUndefined(anchor)){
+					this.anchor = {};
+					this.anchor.x = 0;
+					this.anchor.y = 0;
+				}else{
+					this.anchor.x = isUndefined(anchor.x) ? 0 : anchor.x;
+					this.anchor.y = isUndefined(anchor.x) ? this.anchor.y : anchor.y;
+				}
+				console.log(this);
 				this.setId();
 				this.setType(type);
 			}
-			$Object.prototype ={
+			$Object.prototype = {
 				construct : $Object,
 				setId : function() {
 					if(isUndefined(this.id)){
@@ -63,7 +79,7 @@
 				},
 				setType : function (type) {
 					if(isUndefined(this.type)){
-						this.id = type
+						this.type = type
 					}
 				},
 				getType : function () {
@@ -72,16 +88,19 @@
 			}
 			this._typeObjects['$Object'] = $Object;
 		},
-		typeObjects : function (name,construct) {
+		typeObjects : function (object,construct) {
 			if(isUndefined(construct)){
-				return function () {
-					 Object.create(this._typeObjects[name]);
+				if(object.isString()){
+					return this._typeObjects[object];
+				}else{
+				return new this._typeObjects[object.name](object.props);
 				}
+
 			}else{
-				this._typeObjects[name] = construct;
-				inheritPrototype(this._typeObjects[name],clave._typeObjects['$Object']);
+				this._typeObjects[object] = construct;
+				inheritPrototype(this._typeObjects[object],this._typeObjects['$Object']);
 				//this._typeObjects[name].construct.prototype = prot;
-				return this._typeObjects[name];
+				return this._typeObjects[object];
 			}
 		}
 	};

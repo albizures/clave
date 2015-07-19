@@ -2,15 +2,15 @@
   'use strict';
   clave.modules('Graphics',function () {
     return function (name) {
-      module = {
+      var module = {
         canvas : _.getElementById(name),
         ctx : canvas.getContext('2d'),
         init : function () {
-          context.fillStyle = context.strokeStyle = color;
-          context.imageSmoothingEnabled = false;
-          context.oImageSmoothingEnabled = false;
-          context.mozImageSmoothingEnabled = false;
-          context.webkitImageSmoothingEnabled = false;
+          this.ctx.fillStyle = this.ctx.strokeStyle = "#fff";
+          this.ctx.imageSmoothingEnabled = false;
+          this.ctx.oImageSmoothingEnabled = false;
+          this.ctx.mozImageSmoothingEnabled = false;
+          //this.ctx.webkitImageSmoothingEnabled = false;
           return this;
         }
       }
