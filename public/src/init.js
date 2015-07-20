@@ -49,6 +49,15 @@
 				}
 			}
 		},
+		objects : function (obj) {
+			if(!isUndefined(obj)){
+				if(obj instanceof this.typeObjects('$Object')){	
+					this._objets[obj.getId()] = obj;
+				}else if(isUndefined(obj.name)){
+					return this._objets[obj.id];
+				}
+			}
+		},
 		init : function() {
 			function $Object (type,width,height,postX,postY,anchor) {
 				this.width = isUndefined(width) ? 0 : width;
@@ -63,7 +72,6 @@
 					this.anchor.x = isUndefined(anchor.x) ? 0 : anchor.x;
 					this.anchor.y = isUndefined(anchor.x) ? this.anchor.y : anchor.y;
 				}
-				console.log(this);
 				this.setId();
 				this.setType(type);
 			}
@@ -93,9 +101,10 @@
 				if(object.isString()){
 					return this._typeObjects[object];
 				}else{
-				return new this._typeObjects[object.name](object.props);
+					var obj = new this._typeObjects[object.name](object.props);
+					this.objects(obj);
+					return obj
 				}
-
 			}else{
 				this._typeObjects[object] = construct;
 				inheritPrototype(this._typeObjects[object],this._typeObjects['$Object']);

@@ -17,10 +17,13 @@
 
           },
           mainLoop : function () {
-            raf(mainLoop);
+            raf(module.mainLoop);
+            graphics.clear();
           },
           init : function () {
             $.addEventListener('resize',this.resize);
+            this.mainLoop();
+            console.timeEnd('init');
             return this;
           }
         }
