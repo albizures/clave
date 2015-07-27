@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/albizures/clave",
   "dependencies": {
-    "st": "^0.5.4"
+    "socket.io": "^1.3.6"
   },
   "devDependencies": {
     "grunt-concurrent": "^2.0.0",

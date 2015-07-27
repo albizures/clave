@@ -51,7 +51,7 @@
 		},
 		objects : function (obj) {
 			if(!isUndefined(obj)){
-				if(obj instanceof this.typeObjects('$Object')){	
+				if(obj instanceof this.typeObjects('$Object')){
 					this._objets[obj.getId()] = obj;
 				}else if(isUndefined(obj.name)){
 					return this._objets[obj.id];
@@ -116,5 +116,9 @@
 	clave.init();
 	$.onload = function () {
 		clave.modules('Main')();
+		var socket = io.connect();
+		socket.on('news', function (data) {
+        console.log(data);
+    });
 	}
 })(window,document);

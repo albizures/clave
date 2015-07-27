@@ -1,0 +1,13 @@
+{
+  "name": "clave",
+  "version": "0.1.0",
+  "homepage": "https://github.com/albizures/clave",
+  "authors": [
+    "albizures <albizures3601@gmail.com>",
+    "Dylan Giron <dylandau5@gmail.com>"
+  ],
+  "main": "server.js",
+  "moduleType": [
+    "globals"
+  ]
+}

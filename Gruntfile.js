@@ -52,7 +52,7 @@ module.exports = function (grunt) {
           },
           callback: function (nodemon) {
             nodemon.on('log', function (event) {
-              console.log(event.colour);
+              //console.log(event.colour);
             });
             nodemon.on('config:update', function () {
                // Delay before server listens on port
