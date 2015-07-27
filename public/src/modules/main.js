@@ -23,6 +23,7 @@
           init : function () {
             $.addEventListener('resize',this.resize);
             this.mainLoop();
+            this.states = clave.modules('States')(this);
             console.timeEnd('init');
             return this;
           }

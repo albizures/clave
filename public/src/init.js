@@ -29,6 +29,12 @@
 	Object.prototype.isString = function () {
 		return typeof this.valueOf() === 'string';
 	};
+	Object.prototype.isArray = function () {
+		return !isUndefined(this.length);
+	};
+	Object.prototype.is$Object = function () {
+		return this instanceof clave.typeObjects('$Object');
+	};
 	$['isUndefined'] = function (value) {
 		return typeof value === 'undefined';
 	};
@@ -102,7 +108,7 @@
 					return this._typeObjects[object];
 				}else{
 					var obj = new this._typeObjects[object.name](object.props);
-					this.objects(obj);
+					//this.objects(obj);
 					return obj
 				}
 			}else{
@@ -115,7 +121,9 @@
 	};
 	clave.init();
 	$.onload = function () {
-		clave.modules('Main')();
+		clave.modules('Main')()
+			.states.setCurrent('basicMultiplayer');
+
 		var socket = io.connect();
 		socket.on('news', function (data) {
         console.log(data);

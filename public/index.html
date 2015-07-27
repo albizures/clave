@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Clavee </title>
+  <title>Clave</title>
   <style>
     body {
       margin: 0 0 0 0;
@@ -20,6 +20,14 @@
       background-color: gray;
       image-rendering: optimizeSpeed;
     }
+    :not(input):not(textarea) {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
   </style>
   <script type="text/javascript">
     console.time('init');
@@ -32,6 +40,7 @@
   <script src="/src/utils.js"></script>
   <script src="/src/init.js"></script>
   <script src="/src/objects/player.js"></script>
+  <script src="/src/modules/states.js"></script>
   <script src="/src/modules/color.js"></script>
   <script src="/src/modules/graphics.js"></script>
   <script src="/src/modules/main.js"></script>
