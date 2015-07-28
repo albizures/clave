@@ -14,6 +14,7 @@
     copyParent.constructor = child;
     child.prototype = copyParent;
 	}
+	$['stateInit'] = [];
 	$['time'] = function () {
         return new Date().getTime();
   };
@@ -30,12 +31,15 @@
 		return typeof this.valueOf() === 'string';
 	};
 	Object.prototype.isArray = function () {
-		return !isUndefined(this.length);
+		return !isUnd(this.length);
 	};
 	Object.prototype.is$Object = function () {
 		return this instanceof clave.typeObjects('$Object');
 	};
-	$['isUndefined'] = function (value) {
+	Object.prototype.isState = function () {
+		return this instanceof clave.typeObjects('State');
+	};
+	$['isUnd'] = function (value) {
 		return typeof value === 'undefined';
 	};
 	$['clave'] = {
@@ -47,8 +51,8 @@
 			return this.countId++;
 		},
 		modules : function (name,module) {
-			if(!isUndefined(name)){
-				if(isUndefined(module)){
+			if(!isUnd(name)){
+				if(isUnd(module)){
 					return this._modules[name];
 				}else if(module.isFunc()){
 					this._modules[name] = module();
@@ -56,27 +60,27 @@
 			}
 		},
 		objects : function (obj) {
-			if(!isUndefined(obj)){
+			if(!isUnd(obj)){
 				if(obj instanceof this.typeObjects('$Object')){
 					this._objets[obj.getId()] = obj;
-				}else if(isUndefined(obj.name)){
+				}else if(isUnd(obj.name)){
 					return this._objets[obj.id];
 				}
 			}
 		},
 		init : function() {
 			function $Object (type,width,height,postX,postY,anchor) {
-				this.width = isUndefined(width) ? 0 : width;
-				this.height = isUndefined(height) ? this.width : height;
-				this.postX = isUndefined(postX) ? 0 : postX;
-				this.postY = isUndefined(postY) ? this.postX : postY;
-				if(isUndefined(anchor)){
+				this.width = isUnd(width) ? 0 : width;
+				this.height = isUnd(height) ? this.width : height;
+				this.postX = isUnd(postX) ? 0 : postX;
+				this.postY = isUnd(postY) ? this.postX : postY;
+				if(isUnd(anchor)){
 					this.anchor = {};
 					this.anchor.x = 0;
 					this.anchor.y = 0;
 				}else{
-					this.anchor.x = isUndefined(anchor.x) ? 0 : anchor.x;
-					this.anchor.y = isUndefined(anchor.x) ? this.anchor.y : anchor.y;
+					this.anchor.x = isUnd(anchor.x) ? 0 : anchor.x;
+					this.anchor.y = isUnd(anchor.x) ? this.anchor.y : anchor.y;
 				}
 				this.setId();
 				this.setType(type);
@@ -84,7 +88,7 @@
 			$Object.prototype = {
 				construct : $Object,
 				setId : function() {
-					if(isUndefined(this.id)){
+					if(isUnd(this.id)){
 						this.id = clave.getId();
 					}
 				},
@@ -92,7 +96,7 @@
 					return this.id;
 				},
 				setType : function (type) {
-					if(isUndefined(this.type)){
+					if(isUnd(this.type)){
 						this.type = type
 					}
 				},
@@ -100,10 +104,46 @@
 					return this.type;
 				}
 			}
+
+
+			function State (name){
+				this._elements = {};
+				this._name = name;
+			}
+			State.prototype = {
+				add : function (element) {
+					if(element.isArray()){
+						for(index in element){
+							if(element[index].is$Object()){
+								this._elements[element[index].getId()] = element[index];
+							}else{
+								throw new Error('Invalid type element');
+							}
+						}
+					}else if{
+						this._elements[element.getId()] = element;
+					}else {
+						throw new Error('Invalid type element');
+					}
+				},
+				delete : function (elementID) {
+
+				},
+				update : function () {
+
+				},
+				draw : function () {
+
+				},
+				reset : function () {
+
+				},
+			};
 			this._typeObjects['$Object'] = $Object;
+			this._typeObjects['State'] = $Object;
 		},
 		typeObjects : function (object,construct) {
-			if(isUndefined(construct)){
+			if(isUnd(construct)){
 				if(object.isString()){
 					return this._typeObjects[object];
 				}else{

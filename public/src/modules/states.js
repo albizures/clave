@@ -3,43 +3,26 @@
 		return function (parent) {
 			var states = {},
 					currentState;
-					function State (){
-						this._elements = {};
-					}
-					State.prototype.add = function (element) {
-						if(element.isArray()){
-							for(index in element){
-								if(element[index].is$Object()){
-									this._elements[element[index].getId()] = element[index];
-								}else{
-									throw new Error('Invalid type element');
-								}
-							}
-						}else if{
-							this._elements[element.getId()] = element;
-						}else {
-							throw new Error('Invalid type element');
-						}
-					};
-					State.prototype.delete = function (element) {
-
-					};
-					State.prototype.update = function () {
-
-					};
-					State.prototype.draw = function () {
-
-					}
-					State.prototype.reset = function () {
-						
-					};
 			var module = {
 				parent : parent,
-				add : function (name,state) {
-					if(!states[name]){
-						states[name] = state;
+				add : function (state) {
+					if(isUnd(state) && state.isState()){
+						if(state.isArray()){
+							for(index in state){
+								if(!states[state[index]._name]){
+									states[state[index]._name] = state;
+								}else{
+									throw new Error("The state "+ name +" already exist");
+								}
+							}
+						}else if(!states[state._name]){
+							states[state._name] = state;
+						}else{
+							throw new Error("The state "+ name +" already exist");
+						}
+
 					}else{
-						throw new Error("The state "+ name +" already exist");
+						throw new Error("It's not a type State");
 					}
 					return this.parent;
 				},

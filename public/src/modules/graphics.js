@@ -15,7 +15,7 @@
           return this;
         },
         clear : function (color) {
-          color : isUndefined(color) ? colors.clean : color;
+          color : isUnd(color) ? colors.clean : color;
           this.ctx.save();
           this.ctx.fillStyle = color;
           this.ctx.fillRect(0,0,canvas.width,canvas.height);
