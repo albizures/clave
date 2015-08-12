@@ -37,7 +37,7 @@
 		return this instanceof clave.typeObjects('$Object');
 	};
 	Object.prototype.isState = function () {
-		return this instanceof clave.typeObjects('State');
+		return this instanceof clave.typeObjects('$State');
 	};
 	$['isUnd'] = function (value) {
 		return typeof value === 'undefined';
@@ -106,11 +106,11 @@
 			}
 
 
-			function State (name){
+			function $State (name){
 				this._elements = {};
 				this._name = name;
 			}
-			State.prototype = {
+			$State.prototype = {
 				add : function (element) {
 					if(element.isArray()){
 						for(index in element){
@@ -120,7 +120,7 @@
 								throw new Error('Invalid type element');
 							}
 						}
-					}else if{
+					}else if(element.isState()){
 						this._elements[element.getId()] = element;
 					}else {
 						throw new Error('Invalid type element');
@@ -130,17 +130,16 @@
 
 				},
 				update : function () {
-
+					//console.log('update',this._name);
 				},
 				draw : function () {
-
 				},
 				reset : function () {
 
-				},
+				}
 			};
 			this._typeObjects['$Object'] = $Object;
-			this._typeObjects['State'] = $Object;
+			this._typeObjects['$State'] = $State;
 		},
 		typeObjects : function (object,construct) {
 			if(isUnd(construct)){
@@ -161,12 +160,18 @@
 	};
 	clave.init();
 	$.onload = function () {
-		clave.modules('Main')()
-			.states.setCurrent('basicMultiplayer');
-
+		var main = clave.modules('Main')()
+			.states.add(clave.typeObjects({name : '$State' , props : 'basicMultiplayer'}))
+			.states.add(clave.typeObjects({name : '$State' , props : 'customMultiplayer'}))
+			.states.setCurrent('basicMultiplayer').init();
 		var socket = io.connect();
-		socket.on('news', function (data) {
-        console.log(data);
+		socket.on('welcome', function (player) {
+			console.log('welcome',player);
+			socket.emit('gotit',player);
     });
+		socket.on('playerJoin',function (player) {
+			console.log(player);
+		})
+		//socket.emit('respawn');
 	}
 })(window,document);

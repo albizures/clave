@@ -1,0 +1,5 @@
+{
+	"gameWidth": 5000,
+  "gameHeight": 5000,
+	"port" : 9001
+}

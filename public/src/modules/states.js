@@ -6,7 +6,7 @@
 			var module = {
 				parent : parent,
 				add : function (state) {
-					if(isUnd(state) && state.isState()){
+					if(!isUnd(state) && state.isState()){
 						if(state.isArray()){
 							for(index in state){
 								if(!states[state[index]._name]){
@@ -27,7 +27,12 @@
 					return this.parent;
 				},
 				update : function () {
-					states[currentState].update();
+					if(!isUnd(currentState)){
+						states[currentState].update();
+					}else{
+						throw new Error("The currentState is undefined");
+					}
+
 				},
 				setCurrent : function (name) {
 					if(states[name]){
@@ -35,12 +40,25 @@
 					}else {
 						throw new Error("The state "+ name +" doesn't exist yet");
 					}
+					return this.parent;
 				},
 				getCurrent : function () {
 					return currentState;
 				},
 				draw : function () {
-					states[currentState].draw();
+					if(!isUnd(currentState)){
+						states[currentState].draw();
+					}else{
+						throw new Error("The currentState is undefined");
+					}
+				},
+				end : function (fps, panic) {
+					if(panic){
+						console.warn('panic!');
+					}
+				},
+				addElement : function () {
+
 				}
 			};
 			return module;

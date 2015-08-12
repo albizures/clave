@@ -9,7 +9,7 @@ module.exports = function (grunt) {
         livereload: 1337
       },
       client  : {
-          files : ['public/**/*.js'],
+          files : ['public/**/*.js','public/index.html'],
           options : {
             livereload: 1337
           }

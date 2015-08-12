@@ -3,32 +3,28 @@
   'use strict';
   clave.modules('Main',function () {
     return function () {
-      var raf = (function () {
-        return $.requestAnimationFrame ||
-          $.webkitRequestAnimationFrame ||
-          $.mozRequestAnimationFrame ||
-          $.msRequestAnimationFrame ||
-          $.oRequestAnimationFrame ||
-          function (n) {$.setTimeout(n, 1000 / 60);}
-        }()),
-        graphics = clave.modules('Graphics')('canvas');
+        var graphics = clave.modules('Graphics')('canvas');
         var module = {
           resize : function (event) {
 
           },
           mainLoop : function () {
-            raf(module.mainLoop);
-            graphics.clear();
+
+            //graphics.clear();
           },
-          init : function () {
+          preInit : function () {
             $.addEventListener('resize',this.resize);
             this.mainLoop();
             this.states = clave.modules('States')(this);
             console.timeEnd('init');
             return this;
+          },
+          init : function () {
+            MainLoop.setUpdate(this.states.update).setDraw(this.states.draw).setEnd(this.states.end).start();
+            return this;
           }
         }
-        return module.init();
+        return module.preInit();
     }
   });
 
